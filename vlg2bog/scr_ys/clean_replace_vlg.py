@@ -29,7 +29,7 @@ def clean_replace_vlg(file_in, file_out):
     os.remove(file_in)
 
 if __name__ == '__main__':
-    file = "../bog/boom0_bog.v"
+    #file = "../bog/boom0_bog.v"
     clean_replace_vlg(file)
 
 ### replace gates ###
