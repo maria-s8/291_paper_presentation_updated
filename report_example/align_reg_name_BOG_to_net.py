@@ -76,27 +76,27 @@ def autoRun(design_name, design_top):
     print('Current Design:', design_name)
 
     
-    net_dct_path = f"./save_rpt/net_timing_rpt_{phase}/{design_name}.json"
+    net_dct_path = f"./test_save_rpt/net_timing_rpt_{phase}/{design_name}.json"
     with open(net_dct_path, 'r') as f:
         net_dct = json.load(f)
     net_dct = clean_net_dct(net_dct)
 
 
     # for cmd in ['sog', 'aig', 'aimg', 'xag']:
-    bog_dct_path = f"./save_rpt/bog_timing_rpt/{cmd}/{design_name}_{cmd}.pkl"
+    bog_dct_path = f"./test_save_rpt/bog_timing_rpt/{cmd}/{design_name}_{cmd}.pkl"
     with open(bog_dct_path, 'rb') as f:
         bog_dct = pickle.load(f)
 
     bog_dct, net_dct = align_reg_name(bog_dct, net_dct)
 
-    if not os.path.exists(f"./rtl_timing_data/{phase}/{cmd}/"):
-        os.makedirs(f"./rtl_timing_data/{phase}/{cmd}", exist_ok=True)
-    if not os.path.exists(f"./rtl_timing_data/{phase}/net/"):
-        os.makedirs(f"./rtl_timing_data/{phase}/net", exist_ok=True)
+    if not os.path.exists(f"./test_rtl_timing_data/{phase}/{cmd}/"):
+        os.makedirs(f"./test_rtl_timing_data/{phase}/{cmd}", exist_ok=True)
+    if not os.path.exists(f"./test_rtl_timing_data/{phase}/net/"):
+        os.makedirs(f"./test_rtl_timing_data/{phase}/net", exist_ok=True)
 
-    with open(f"./rtl_timing_data/{phase}/{cmd}/{design_name}_{cmd}.pkl", 'wb') as f:
+    with open(f"./test_rtl_timing_data/{phase}/{cmd}/{design_name}_{cmd}.pkl", 'wb') as f:
         pickle.dump(bog_dct, f)
-    with open(f"./rtl_timing_data/{phase}/net/{design_name}.json", 'w') as f:
+    with open(f"./test_rtl_timing_data/{phase}/net/{design_name}.json", 'w') as f:
         json.dump(net_dct, f, indent=4)
     
 

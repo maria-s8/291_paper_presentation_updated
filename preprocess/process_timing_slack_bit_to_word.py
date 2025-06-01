@@ -35,12 +35,12 @@ def autoRun(design_name, design_top):
     print('Current Design: ', design_name)
 
     ### design-level feature
-    bog_rpt_pwr_path = f"./rtl_pwr_data/bog_pwr_rpt/{cmd}/{design_name}_{cmd}.json"
-    with open(bog_rpt_pwr_path, 'r') as f:
-        bog_dct_pwr = json.load(f)
-    bog_feat_dct = bog_dct_pwr['module']
-    design_feat = bog_feat_dct[design_top]['cell'][0:7]
-    design_feat.append(bog_feat_dct[design_top]['net'][0])
+    #bog_rpt_pwr_path = f"./rtl_pwr_data/bog_pwr_rpt/{cmd}/{design_name}_{cmd}.json"
+    #with open(bog_rpt_pwr_path, 'r') as f:
+    #    bog_dct_pwr = json.load(f)
+    #bog_feat_dct = bog_dct_pwr['module']
+    #design_feat = bog_feat_dct[design_top]['cell'][0:7]
+    #design_feat.append(bog_feat_dct[design_top]['net'][0])
 
     ### path-level timing feature
     bog_rpt_path = f"./rtl_timing_data/{label_cmd}/{cmd}/{design_name}_{cmd}.pkl"
@@ -54,14 +54,14 @@ def autoRun(design_name, design_top):
     bog_dct_word = reg_bit_to_word(bog_dct_all, is_net=False)
     net_dct_word = reg_bit_to_word(net_dct_all, is_net=True)
 
-    if not os.path.exists(f"./rtl_timing_data/{label_cmd}_word/{cmd}"):
-        os.makedirs(f"./rtl_timing_data/{label_cmd}_word/{cmd}")
-    with open (f"./rtl_timing_data/{label_cmd}_word/{cmd}/{design_name}_{cmd}.pkl", 'wb') as f:
+    if not os.path.exists(f"./test_rtl_timing_data/{label_cmd}_word/{cmd}"):
+        os.makedirs(f"./test_rtl_timing_data/{label_cmd}_word/{cmd}")
+    with open (f"./test_rtl_timing_data/{label_cmd}_word/{cmd}/{design_name}_{cmd}.pkl", 'wb') as f:
         pickle.dump(bog_dct_word, f)
 
-    if not os.path.exists(f"./rtl_timing_data/{label_cmd}_word/net"):
-        os.makedirs(f"./rtl_timing_data/{label_cmd}_word/net")
-    with open (f"./rtl_timing_data/{label_cmd}_word/net/{design_name}.json", 'w') as f:
+    if not os.path.exists(f"./test_rtl_timing_data/{label_cmd}_word/net"):
+        os.makedirs(f"./test_rtl_timing_data/{label_cmd}_word/net")
+    with open (f"./test_rtl_timing_data/{label_cmd}_word/net/{design_name}.json", 'w') as f:
         json.dump(net_dct_word, f, indent=4)
     
 
@@ -90,12 +90,12 @@ if __name__ == '__main__':
     design_json = f"../design_rtl_timer_pwr.json"
 
     global phase, cmd, label_cmd
-    cmd = 'sog'
-    # cmd = 'xag'
-    # cmd = 'aig'
-    # cmd = 'aimg'
-    label_cmd = "init"
-    # label_cmd = "route"
+    #cmd = 'sog'
+    #cmd = 'xag'
+    #cmd = 'aig'
+    cmd = 'aimg'
+    #label_cmd = "init"
+    label_cmd = "route"
 
     phase = 'SYN'
     assert phase in ['SYN', 'PREOPT', 'PLACE', 'CTS', 'ROUTE']

@@ -11,7 +11,7 @@ def run_one_design(param_lst):
         lines = f.readlines()
         
     with open(ys_scr, "w") as f_scr:
-        f_scr.writelines("read -verific\n")
+        #f_scr.writelines("read -verific\n")
 
         design_rtl_dir = f"../rtl_example/{bench}/rtl/{design}/"
         ## read every file in the design rtl dir
@@ -32,10 +32,10 @@ def run_one_design(param_lst):
     os.system(f"yosys {ys_scr}")
     os.system(f"rm -rf {ys_scr}")
 
-    bog_tmp_path = f"../bog_tmp/{design}.{cmd}.v"
-    if not os.path.exists(f"../bog/{cmd}/"):
-        os.makedirs(f"../bog/{cmd}/")
-    bog_path = f"../bog/{cmd}/{design}.{cmd}.v"
+    bog_tmp_path = f"./bog_tmp/{design}.{cmd}.v"
+    if not os.path.exists(f"./test/bog/{cmd}/"):
+        os.makedirs(f"./test/bog/{cmd}/")
+    bog_path = f"./test/bog/{cmd}/{design}.{cmd}.v"
     # os.system(f"cp {bog_tmp_path} {bog_path}")
     clean_replace_vlg(bog_tmp_path, bog_path)
 
@@ -76,9 +76,9 @@ def run_all_parallel(bench, design_name):
 
 if __name__ == '__main__':
     global cmd
-    cmd = "sog"
-    cmd = "aig"
-    cmd = "xag"
+    #cmd = "sog"
+    #cmd = "aig"
+    #cmd = "xag"
     cmd = "aimg"
     
     boom_lst = []
@@ -90,6 +90,8 @@ if __name__ == '__main__':
     # bench_lst = ["chipyard"]
     # design = "Rocket"
     design = "TinyRocket"
+
+    os.makedirs(f"./bog_tmp/{cmd}/", exist_ok=True)
 
     for bench in bench_lst:
         run_all_parallel(bench, design)

@@ -1,3 +1,5 @@
+# Input feature reports extraction
+
 import re, os, time, json, pickle
 from multiprocessing import Pool
 from timing_path import timing_slack_rpt_parser
@@ -54,14 +56,14 @@ def autoRun(design_name, design_top):
     slack_rpt_path = f"./rpt_data/BOG/{cmd}/{design_top}_{design_name}_TYP_SYN_TYP_SAIF_SDF/{design_top}.timing_slack.rpt"
     reg_feat_dct = parse_slack_rpt(slack_rpt_path)
     # print(f"reg_feat_dct: {reg_feat_dct}")
-    if not os.path.exists(f"./save_rpt/bog_timing_rpt/{cmd}/"):
-        os.makedirs(f"./save_rpt/bog_timing_rpt/{cmd}", exist_ok=True)
-    if not os.path.exists(f"./save_rpt/bog_reg_lst/"):
-        os.makedirs(f"./save_rpt/bog_reg_lst/", exist_ok=True)
-    with open(f"./save_rpt/bog_timing_rpt/{cmd}/{design_name}_{cmd}.pkl", 'wb') as f:
+    if not os.path.exists(f"./test_save_rpt/bog_timing_rpt/{cmd}/"):
+        os.makedirs(f"./test_save_rpt/bog_timing_rpt/{cmd}", exist_ok=True)
+    if not os.path.exists(f"./test_save_rpt/bog_reg_lst/"):
+        os.makedirs(f"./test_save_rpt/bog_reg_lst/", exist_ok=True)
+    with open(f"./test_save_rpt/bog_timing_rpt/{cmd}/{design_name}_{cmd}.pkl", 'wb') as f:
         pickle.dump(reg_feat_dct, f)
     
-    with open(f"./save_rpt/bog_reg_lst/{design_name}.json", 'w') as f:
+    with open(f"./test_save_rpt/bog_reg_lst/{design_name}.json", 'w') as f:
         json.dump(list(reg_feat_dct.keys()), f, indent=4)
 
     
@@ -87,11 +89,11 @@ if __name__ == '__main__':
 
     global cmd
 
-    cmd = 'sog'
-    # cmd = 'aig'
-    # cmd = 'aimg'
-    # cmd = 'xag'
-    # phase = 'route'
+    #cmd = 'sog'
+    #cmd = 'aig'
+    #cmd = 'aimg'
+    cmd = 'xag'
+    #phase = 'route'
 
     assert cmd in ['sog', 'aig', 'aimg', 'xag']
 

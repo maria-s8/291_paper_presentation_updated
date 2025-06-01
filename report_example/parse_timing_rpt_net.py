@@ -1,3 +1,5 @@
+# Ground truth reports extraction
+
 import re, os, time, json
 from multiprocessing import Pool
 from timing_path import timing_slack_rpt_parser
@@ -47,9 +49,9 @@ def autoRun(design_name, design_top):
     parse_qor_rpt(qor_rpt_path)
     slack_rpt_path = f"./rpt_data/net/{design_top}_{design_name}_{phase}_TYP_SAIF_SDF/{design_top}.timing_slack.rpt"
     reg_slack_dct = parse_slack_rpt(slack_rpt_path)
-    if not os.path.exists(f"./save_rpt/net_timing_rpt_{phase}/"):
-        os.makedirs(f"./save_rpt/net_timing_rpt_{phase}", exist_ok=True)
-    with open(f"./save_rpt/net_timing_rpt_{phase}/{design_name}.json", 'w') as f:
+    if not os.path.exists(f"./test_save_rpt/net_timing_rpt_{phase}/"):
+        os.makedirs(f"./test_save_rpt/net_timing_rpt_{phase}", exist_ok=True)
+    with open(f"./test_save_rpt/net_timing_rpt_{phase}/{design_name}.json", 'w') as f:
         json.dump(reg_slack_dct, f, indent=4)
     
 
@@ -77,7 +79,7 @@ if __name__ == '__main__':
     global phase
 
     phase = 'init'
-    phase = 'route'
+    #phase = 'route'
 
     assert phase in ['init', 'route']
 

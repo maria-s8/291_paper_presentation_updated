@@ -1,3 +1,5 @@
+# Reproduction of work in paper "Annotating Slack Directly on Your Verilog: Fine-Grained RTL Timing Evaluation for Early Optimization"
+
 # RTL Dataset
 
 - Example folder: vlg2bog/rtl_example

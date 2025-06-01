@@ -32,8 +32,10 @@ def autoRun(design_name, design_top):
             'label_slack': slack_val,
         }
         save_lst.append(feat_label_dct)
-    
-    with open (f"./feat_label_timing/{design_name}_{cmd}_{label_cmd}.pkl", 'wb') as f:
+
+    if not os.path.exists(f"./test_feat_label_timing/"):
+        os.makedirs(f"./test_feat_label_timing/")
+    with open (f"./test_feat_label_timing/{design_name}_{cmd}_{label_cmd}.pkl", 'wb') as f:
         pickle.dump(save_lst, f)
     
     # if len(bog_pwr_lst) <= 1:
@@ -75,11 +77,11 @@ if __name__ == '__main__':
     # cmd = 'aig'
     # cmd = 'aimg'
 
-    # label_cmd = "init"
-    # label_cmd = "route"
+    label_cmd = "init"
+    #label_cmd = "route"
     
-    label_cmd = "init_word"
-    # label_cmd = "route_word"
+    #label_cmd = "init_word"
+    #label_cmd = "route_word"
 
     phase = 'SYN'
     assert phase in ['SYN', 'PREOPT', 'PLACE', 'CTS', 'ROUTE']
@@ -88,7 +90,7 @@ if __name__ == '__main__':
         design_data = json.load(f)
 
     
-    design_name = ""
+    design_name = "TinyRocket"
     bench_list = ['iscas', 'itc', 'opencores','VexRiscv', 'chipyard', 'riscvcores', 'NVDLA']
     # bench_list = ['chipyard', 'riscvcores', 'NVDLA']
 
